@@ -1,0 +1,22 @@
+page 1:
+	text: It was a dark, stormy night.
+	choice -> 2: Go to bed
+	choice -> 2: Go outside
+	timer -> 3: 15
+	image: grate.jpg
+	input<name> -> 3: Enter a name...
+end
+
+page 2:
+	set<name>: Robert
+	set<key>: name
+	text: You went
+	text:  to bed. [p1c1 p1c2 p3p5 !p2c3]
+	text:  outside. [p1c2]
+	image: grate.jpg
+end
+
+page 3:
+	text: get<get<key>> stood there and did nothing.
+	image: grate.jpg
+end
