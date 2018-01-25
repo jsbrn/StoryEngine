@@ -45,7 +45,11 @@ public class SlickInitializer extends StateBasedGame {
             Window.setFullscreen();
             Window.WINDOW_INSTANCE.setAlwaysRender(true);
             Window.WINDOW_INSTANCE.setUpdateOnlyWhenVisible(false);
-            Window.WINDOW_INSTANCE.setIcon("resources/favicon.png");
+            Window.WINDOW_INSTANCE.setIcons(new String[]{
+                "resources/icon-16x16.png",
+                "resources/icon-32x32.png",
+                "resources/icon-64x64.png",
+                "resources/icon-128x128.png"});
             Window.WINDOW_INSTANCE.start();
         } catch (SlickException e) {
             e.printStackTrace();

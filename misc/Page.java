@@ -25,7 +25,7 @@ public class Page {
     private double time;
 
     private static Page current_page;
-    private static HashMap<String, String> variables;
+    private static HashMap<String, String> variables = new HashMap<String, String>();
     
     private static Page CONFIRMATION_PAGE;
     
@@ -231,16 +231,19 @@ public class Page {
     }
     
     private static boolean checkConditional(String line) {
-        Pattern pattern = Pattern.compile("( \\[.*\\])");
-        Matcher matcher = pattern.matcher(line);
-        if (matcher.find()) {
-            String cond = matcher.group();
-            cond = cond.replaceAll("\\[|\\]", "");
-            String split[] = cond.split(" ");
-            for (String b: split) {
-                if (!b.matches("[!]?p([\\d])+c([\\d])+")) continue;
-                if (!Assets.choiceMade(b)) return false;
+        int start = line.indexOf(" [") + 1;
+        if (start == 0) return true;
+        String substring = line.substring(start);
+        String groups[] = substring.split("\\] \\[");
+        for (String group : groups) {
+            String group_ = group.replaceAll("\\]|\\[", "").trim();
+            boolean group_val = false;
+            for (String conditional : group_.split(", ")) {
+                if (conditional.matches("!?p[0-9]+c[0-9]+")) {
+                    if (Assets.choiceMade(conditional)) { group_val = true; break; }
+                }
             }
+            if (!group_val) return false;
         }
         return true;
     }

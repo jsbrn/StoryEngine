@@ -75,7 +75,7 @@ public class ImageBackground extends GUIElement {
         }
         length[0] += MiscMath.getConstant(length[1] - length[0] >= 0 ? 25 : -25, 1); length[0] = (float)MiscMath.clamp(length[0], 0, MAX_LENGTH);
         double[] vel = MiscMath.calculateVelocity((target[0] - coords[0]), (target[1] - coords[1]));
-        double div = Page.getCurrentPage().getChoices().isEmpty() ? 15 : 5;
+        double div = Page.getCurrentPage().getChoices().isEmpty() ? 18 : 10;
         coords[0] += vel[0] / div;
         coords[1] += vel[1] / div;
     }
