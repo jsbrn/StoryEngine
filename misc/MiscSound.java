@@ -1,14 +1,34 @@
 package misc;
 
-import paulscode.sound.SoundSystemConfig;
-
 public class MiscSound {
     
-    public static void playSound(String file) {
-        float base_volume = .75f;
-        String sound_id = Assets.getSoundSystem().quickPlay(false, 
-                file, false, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
-        Assets.getSoundSystem().setVolume(sound_id, 1f);
+    private static Page playing;
+    
+    public static void play(Page p) {
+        if (!p.equals(playing)) {
+            if (playing != null) {
+                for (String clip: playing.getAudio()) { //fade out any clips that are not playing
+                    boolean keep = p.getAudio().contains(clip);
+                    System.out.println("Old clip: "+clip);
+                    if (!keep) Assets.getSoundSystem().fadeOut(clip, null, 6000);
+                        else Assets.getSoundSystem().setLooping(clip, playing.audioLoops(clip));
+                }
+            }
+            for (String clip: p.getAudio()) playAudio(clip, p.audioLoops(clip));
+        }
+        playing = p;
+    }
+    
+    private static void playAudio(String file, boolean loop) {
+        System.out.println("New clip: "+file);
+        if (!Assets.getSoundSystem().playing(file)) {
+            Assets.getSoundSystem().backgroundMusic(file, file, false);
+            //Assets.getSoundSystem().setVolume(file, 1f);
+        } else {
+            Assets.getSoundSystem().queueSound(file, file);
+            Assets.getSoundSystem().setLooping(file, loop);
+        }
+        
     }
     
 }

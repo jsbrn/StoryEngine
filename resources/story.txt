@@ -1,33 +1,31 @@
 page 1:
 	text: Chapter I: Dinner Among Friends
-	image: suite.jpg
 	input<name> -> 2: Enter your name...
 end
 
 page 2:
 	text: "Here we are, guys. Room 202."\nA lean but muscular boy fumbles with a key in his pocket. He pulls it out and inserts it into the keyhole. Twisting it, he pushes the door open to reveal an elegantly decorated suite. "I can't believe your parents agreed to this, Derek.", Lindsey said in disbelief. She lets her backpack slide off her arm and hit the floor. "I mean, this place is incredible."\n"My folks probably felt bad for always leaving me alone on these trips", Derek explains. "They do a lot of traveling for work around this time of year, and I think the guilt is starting to get to them." He laughs.
-	image: suite.jpg
 	next -> 3: Continue
+	audioloop: rain.ogg
 end
 
 page 3:
 	text: "Well, whatever the reason, it's pretty awesome."\nThe suite is well-furnished, with a pair of beds and a room off to the side with couches. Lindsey sits down on a bed and pulls out a small notepad. She scribbles into it with a pen.\n"What are you writing?", a voice asks. It's Ralph, a short and somewhat stocky boy with dark hair and a deep passion for RC planes. When he accepted Derek's invitation over spending the weekend flying in solitude, it was a nice surprise for all of you. His parents probably forced him to get out of the house. Nevertheless, here he was.
-	image: suite.jpg
 	next -> 4: Continue
+	audio: rain.ogg
 end
 
 page 4:
 	text: "Just crossing things off my bucket list.", she repies. "I only have a few entries left."\nIndeed, Lindsey was as organized as she was beautiful, but you could never tell her that. You'd throw off the whole balance. The two of you have known each other since the very beginning; she's your best friend and trusted confidante. And it was through her that you met Derek and Ralph a few months back, shortly after she first met them while watching birds in the park.\n"Staying in a fancy hotel with three of my best friends over the long weekend just happened to be on that list", she continues happily. "Who knows what kind of shenanigans the four of us will get into?" She sprawls out onto the bed as Ralph sits next to it, book in hand. Derek leans up against the wall.\n"You mean like stealing napkins from the cafe downstairs?", Ralph jokes.\n"You know what I mean, silly. It's just nice to get away from my parents for a bit."
-	image: suite.jpg
 	next -> 5: Continue
+	choice -> 1: choice 1
+	choice -> 1: choice 1
+	choice -> 1: choice 1
+	choice -> 1: choice 1
 end
 
 page 5:
-	text: "Is anyone else as hungry as I am?", Derek asks.\nLindsey nods. "What did you have in mind?"\n"I was thinking we go to that fancy restaurant down the street."\nLindsey declines. "But we just got here, and this bed is amazingly comfortable. Why don't we order some room service?".\nDerek opens his mouth to speak, but Lindsey cuts him off. "We're all totally fine with just hanging out and eating pizza with you. Trust us. We don't need to go to a fancy restaurant to have a good time." She smiles at him.
-	image: suite.jpg
-	image: fair.jpg
-	image: traffic.jpg
-	image: grate.jpg
+	text: "Is anyone else as hungry as I am?", Derek asks. Lindsey nods. "What did you have in mind?"\n"I was thinking we go to that fancy restaurant down the street."\n"But we just got here, and this bed is amazingly comfortable. Why don't we order some room service?".\nDerek opens his mouth to speak, but Lindsey cuts him off. "I'm fine with just hanging out and eating pizza with you guys. We don't need to go to a fancy restaurant to have a good time." She smiles at him.
 	choice -> 6: Speak for yourself
 	choice -> 6: Agree with Lindsey
 end
@@ -40,11 +38,9 @@ page 6:
 	text: Derek goes to the phone and dials room service. [p5c2]
 	next -> 7: To the restaurant! [p5c1]
 	next -> 7: And now we wait... [p5c2]
-	image: suite.jpg
 end
 
 page 7:
 	text: As you make your way down the street,  [p5c1]
 	text: Lindsey turns to Ralph. "I'm glad you decided to join us this weekend.", she says to him. He nods, but doesn't respond.
-	image: suite.jpg
 end

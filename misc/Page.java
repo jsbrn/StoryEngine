@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class Page {
 
     private ArrayList<String> audio, choices, images;
+    private HashMap<String, Boolean> audioloops;
     private ArrayList<Integer> links;
     private String text;
     private Object[] nextpage, inputpage;
@@ -41,7 +42,10 @@ public class Page {
         this.nextpage = new Object[]{-1, ""};
         this.timeout_page = -1;
         this.inputpage = new Object[]{-1, "", ""};
+        this.audioloops = new HashMap<String, Boolean>();
     }
+    
+    public boolean audioLoops(String audio) { return audioloops.get(audio); }
     
     public String getText() { return text; }
     public int getID() { return id; }
@@ -108,6 +112,7 @@ public class Page {
         current_page = p;
         if (!isQuitPage()) Page.save(false); 
         if (PageScreen.getGUI() != null) PageScreen.getGUI().handlePageSwitch();
+        if (!isQuitPage()) MiscSound.play(p);
     }
     
     public static void setVar(String key, String val) {
@@ -125,7 +130,10 @@ public class Page {
         setCurrentPage(timeout_page); 
     }
 
-    public void addAudio(String s) { audio.add(s); }
+    public void addAudio(String s, boolean loop) { 
+        audio.add(s); audioloops.put(s, loop); 
+        System.out.println("Adding audio "+s+", loops = "+loop);
+    }
     public void addImage(String s) { images.add(s); }
     public void addChoice(int i, String s) { 
         choices.add(s); 
@@ -143,6 +151,7 @@ public class Page {
     }
     
     public String getRandomImage() { return images.isEmpty() ? "" : images.get(MiscMath.randomInt(0, images.size()-1)); }
+    public ArrayList<String> getAudio() { return audio; }
     
     public static Page getCurrentPage() { return current_page; }
     public static void setCurrentPage(int id) { setCurrentPage(getPage(id)); }
@@ -194,8 +203,8 @@ public class Page {
                 }
                 if (line.matches("\\ttext: (.)*")) 
                     p.addText(line.replace("\ttext: ", "").replaceAll(cond_rgx, ""));
-                if (line.matches("\\taudio: (.)*")) 
-                    p.addAudio(line.replace("\taudio: ", "").replaceAll(cond_rgx, ""));
+                if (line.matches("\\taudio(loop)?: (.)*")) 
+                    p.addAudio(line.replaceAll("\taudio(loop)?: ", "").replaceAll(cond_rgx, ""), line.trim().indexOf("audioloop:") == 0);
                 if (line.matches("\\timage: (.)*")) 
                     p.addImage(line.replace("\timage: ", "").replaceAll(cond_rgx, ""));
 

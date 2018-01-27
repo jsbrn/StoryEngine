@@ -69,14 +69,9 @@ public class TextViewer extends GUIElement {
     public boolean onKeyPress(int key, char c) {
         if (key == Input.KEY_UP) { onMouseScroll(1); return true; }
         if (key == Input.KEY_DOWN) { onMouseScroll(-1); return true; }
-        return false;
-    }
-   
-    @Override
-    public boolean onKeyRelease(int par1, char c) {
         if (c == 'c' && anim <= 0) { Page.getCurrentPage().next(); return true; }
         if (c == 'x' && anim <= 0) { Page.confirmQuit(); return true; }
-        if (par1 == Input.KEY_F3) GUI.DEBUG_MODE = !GUI.DEBUG_MODE;
+        if (key == Input.KEY_F3) GUI.DEBUG_MODE = !GUI.DEBUG_MODE;
         return false;
     }
     
@@ -126,7 +121,7 @@ public class TextViewer extends GUIElement {
     private void drawArrow(boolean up, Graphics g) {
         float[] osc = osc();
         int[] dims = dims();
-        Point p = new Point((int)(osc[0] + (dims[0]/2)), (int)(up ? osc[1] - 32 : osc[1] + dims[1] + 24));
+        Point p = new Point((int)(osc[0] + (dims[0]) + 10), (int)(up ? osc[1] - 32 : osc[1] + dims[1] + 24));
         Polygon arrow = new Polygon();
         arrow.addPoint((int)p.getX(), (int)p.getY()); 
         arrow.addPoint((int)(p.getX() - 15), (int)(up ? p.getY() + 15 : p.getY() - 15)); 

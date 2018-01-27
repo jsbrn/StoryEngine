@@ -4,6 +4,7 @@ import gui.GUI;
 import java.util.ArrayList;
 import misc.Assets;
 import misc.MiscMath;
+import misc.MiscSound;
 import misc.Page;
 import misc.Window;
 import org.newdawn.slick.Color;
@@ -38,7 +39,7 @@ public class ChoiceViewer extends GUIElement {
             maxtime = time;
         } 
         //quit and next buttons
-        quit_anim += MiscMath.getConstant(!Page.isQuitPage() ? -2 : 2, 1); quit_anim = MiscMath.clamp(quit_anim, 0, 1);
+        quit_anim += MiscMath.getConstant(!Page.isQuitPage() && !Page.getCurrentPage().requiresInput() ? -2 : 2, 1); quit_anim = MiscMath.clamp(quit_anim, 0, 1);
         next_anim += MiscMath.getConstant(ntxt ? -2 : 2, 1); next_anim = MiscMath.clamp(next_anim, 0, 1);
         if (next_anim >= 1) next_text = Page.getCurrentPage().getNextText();
         //countdown choice timer
@@ -75,14 +76,27 @@ public class ChoiceViewer extends GUIElement {
         if (time > 0) drawCircle(osc[0], osc[1], (float)(20*(time/maxtime)), true, false, g);
         g.setColor(Color.black);
         
-        drawKey('X', 30, Window.getHeight() - 32 + (float)(64 * quit_anim), 20, "Quit", RIGHT, g);
         drawKey('C', Window.getWidth() - 32, Window.getHeight() - 32 + (float)(64 * next_anim), 20, 
                 next_text, LEFT, g);
+        
+        float mult = 176;
+        float offset = (float)(mult*quit_anim);
+        
+        drawKey('X', 32, Window.getHeight() - 32 + offset, 20, "Quit", RIGHT, g);
+        int volume = (int)(100 * MiscMath.round(Assets.getSoundSystem().getMasterVolume(), 0.1));
+        
+        drawKey('Q', 32, Window.getHeight() - 32 - 56 + offset, 20, "", RIGHT, g);
+        drawKey('E', 82, Window.getHeight() - 32 - 56 + offset, 20, 
+                "Adjust volume ("+(volume)+"%)", RIGHT, g);
+        
+        drawKey('-', 32, Window.getHeight() - 32 - 112 + offset, 20, "", RIGHT, g);
+        drawKey('+', 82, Window.getHeight() - 32 - 112 + offset, 20, 
+                "Adjust font size ("+(Assets.getFontSize())+" pts)", RIGHT, g);
         
     }
 
     @Override
-    public boolean onKeyRelease(int key, char c) {
+    public boolean onKeyPress(int key, char c) {
         if (c == 'w' && anim <= 0) { Page.getCurrentPage().makeChoice(2); return true; }
         if (c == 'a' && anim <= 0) { Page.getCurrentPage().makeChoice(0); return true; }
         if (c == 's' && anim <= 0) { Page.getCurrentPage().makeChoice(3); return true; }
@@ -96,6 +110,13 @@ public class ChoiceViewer extends GUIElement {
             Assets.TEXT_BACKGROUND = !Assets.TEXT_BACKGROUND;
             Page.save(true);
         }
+        
+        //volume controls
+        float vol = Assets.getSoundSystem().getMasterVolume();
+        float newvol = (float)MiscMath.clamp(c == 'e' ? vol + 0.1f : (c == 'q' ? vol - 0.1f : vol), 0, 1);
+        Assets.getSoundSystem().setMasterVolume(newvol);
+        
+        
         if (key == Input.KEY_F5) Page.clearProgress();
         return false;
     }

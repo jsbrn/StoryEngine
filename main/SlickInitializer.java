@@ -4,6 +4,7 @@ import gui.states.LoadingScreen;
 import gui.states.PageScreen;
 import java.io.IOException;
 import misc.Assets;
+import misc.MiscSound;
 import misc.Window;
 
 import org.newdawn.slick.AppGameContainer;

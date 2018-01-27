@@ -75,7 +75,7 @@ public class TextBox extends GUIElement {
         if (anim > 0) return false;
         if (key == Input.KEY_BACK) {
             backspace();
-        } else if ((c+"").matches("([a-z]|[A-Z])*")) {
+        } else if ((c+"").matches("[A-Z]|[a-z]|[0-9]|[ \\\\@#$-/:-?{-~!\"^_`\\[\\]]")) { //any visible character
             addText(c+"");
             return true;
         }

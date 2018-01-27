@@ -12,6 +12,8 @@ import org.newdawn.slick.TrueTypeFont;
 import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
+import paulscode.sound.codecs.CodecJOgg;
+import paulscode.sound.codecs.CodecJOrbis;
 import paulscode.sound.codecs.CodecWav;
 import paulscode.sound.libraries.LibraryJavaSound;
 import paulscode.sound.libraries.LibraryLWJGLOpenAL;
@@ -75,6 +77,8 @@ public class Assets {
     public static void initializeSoundSystem() {
         try {
             SoundSystemConfig.setCodec("wav", CodecWav.class);
+            SoundSystemConfig.setCodec("ogg", CodecJOgg.class);
+            SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
             SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
             SoundSystemConfig.addLibrary(LibraryJavaSound.class);
             SoundSystemConfig.setSoundFilesPackage("resources/audio/");
@@ -127,7 +131,7 @@ public class Assets {
         if (images.containsKey(asset)) return (Image)images.get(asset);
         Image img = null;
         try {
-            img = new Image("resources/assets/"+asset, false, filter);
+            img = new Image("resources/images/"+asset, false, filter);
             images.put(asset, img);
             System.out.println("Loaded "+asset+" with filter "+filter);
         } catch (SlickException e) {
