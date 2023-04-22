@@ -31,7 +31,7 @@ public class PageScreen extends BasicGameState {
         i.setAnchor(null, GUIElement.CENTER, GUIElement.CENTER, 0, 0);
         gui.addElement(i);
         TextViewer t = new TextViewer();
-        t.setAnchor(null, GUIElement.CENTER, GUIElement.TOP_IN, 0, 50);
+        t.setAnchor(null, GUIElement.CENTER, GUIElement.BOTTOM_IN, 0, 50);
         gui.addElement(t);
         ChoiceViewer c = new ChoiceViewer();
         c.setAnchor(null, GUIElement.CENTER, GUIElement.BOTTOM_IN, 0, 125);
